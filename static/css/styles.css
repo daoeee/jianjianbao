@@ -1,0 +1,51 @@
+div.form-container{
+  display: inline-block;
+  border: 4px ridge:blue;
+  width: 290px;
+  border-radius:10px;
+  margin:10px;
+}
+p.form-header{
+  margin:0px;
+  font: 24px bold;
+  color:white;  background:blue;
+  text-align:center;
+}
+form{
+  margin:10px;
+}
+label{ width:80px; display: inline-block;}
+input{
+  border: 3px ridge blue;
+  border-radius:5px;
+  padding:3px;
+}
+input[type=submit]{
+  font: 18px bold;
+  width: 120px;
+  color:white;  background:blue;
+  margin-top:15px;
+  margin-left:85px;
+}
+
+
+div#pageComments{ margin:0px; clear:both; width:810px; }
+div.comment{ border: 2px ridge blue; padding:10px; 
+  border-radius: 5px;
+}
+.commentBody{ background-color:lightgray; 
+  border-radius: 5px; padding: 5px; margin:0;
+}
+.commentTitle{ font-size: 18px; font-weight: bold;}
+.username{ font-style: italic; color:blue; }
+.subject{ font-weight: bold;}
+.timestamp{ color:#555555; font-style: italic; 
+  font-size: 12px; text-align: right; margin:0;
+}
+input[type="text"],
+textarea{ border: 2px ridge blue; border-radius: 5px; 
+  padding:3px; width:95%;
+}
+input[type="button"]{ background-color:blue;color:white;
+  border-radius: 5px;
+}
