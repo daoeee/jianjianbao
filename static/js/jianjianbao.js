@@ -1,4 +1,4 @@
-var app=angular.module('myApp', []);
+var app=angular.module('jianjianbaoApp', []);
 
 function PosterObj($http) {
   this.addPoster = function(newPoster, callback){
@@ -13,7 +13,7 @@ function PosterObj($http) {
 
 app.service('commentSrv', ['$http', PosterObj]);
   
-  app.controller('myController', ['$scope', '$http', 
+  app.controller('userController', ['$scope', '$http', 
                               function($scope, $http) {
     $http.get('/user/profile')
         .success(function(data, status, headers, config) {
@@ -32,8 +32,13 @@ app.service('commentSrv', ['$http', PosterObj]);
      $scope.posterBody = "";
      $scope.addPoster = function(subject, body){
        var newPoster = {subject:subject, body:body};
-       commentSrv.addPoster(newPoster, function(err, comment){
-         //$scope.loadComments();
+       commentSrv.addPoster(newPoster, function(err, newPoster){
+         if (err) {
+
+         } else {
+           $scope.posterSubject = newPoster.subject;
+           $scope.posterBody = newPoster.body;  
+         }
        });
      };
    }]);

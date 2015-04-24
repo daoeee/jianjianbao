@@ -1,15 +1,15 @@
 <!doctype html>
-<html ng-app="myApp">
+<html ng-app="jianjianbaoApp">
 <head>
   <title>Make Poster</title>
   <link rel="stylesheet" type="text/css" href="/static/css/styles.css" />
 </head>
 <body>
   <div ng-controller="posterController">
-    <form>
+    <form> 
       <label>Subject</label>
       <input type="text" ng-model="posterSubject")></input>
-      <label>Comment</label>
+      <label>Content</label>
       <textarea ng-model="posterBody"></textarea>
       <input type="button" value="Post" 
              ng-click="addPoster(posterSubject,posterBody)" />
