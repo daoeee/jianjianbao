@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- daoeee.com Copy right -->
-<html>
+<html ng-app="jianjianbaoApp">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="../static/css/paybox.css">
     </head>
     <body class="ue_revision portrait">
+    <div ng-controller="posterController">
         
     <div class="j_top_bar blue_kit j_postor_blue_head">
         <div class="blue_kit_left">
@@ -26,16 +27,16 @@
             </a>
         </div>
         <div class="blue_kit_right">
-            <a class="blue_kit_text" href="javascript:;">
+            <a class="blue_kit_text" ng-click="addPoster(posterSubject,posterBody)">
                 提交&nbsp
             </a>
         </div>
     </div>
         
     <div id="j_main_editor_container" class="editor_panel overthrow" style="height:640px;width:100%">
-        <div class="j_editor editor">
+        <div class="j_editor editor"><form>
             <div class="j_editor_title_panel editor_title_panel">
-                <input type="text" value="" placeholder="标题，6-30字" class="j_editor_input editor_input editor_title">
+                <input type="text" ng-model="posterSubject" value="" placeholder="标题，6-30字" class="j_editor_input editor_input editor_title">
             </div>
             <div class="j_editor_content_panel editor_content_panel">
                 <div class="j_savedraft_panel savedraft_panel">
@@ -43,7 +44,7 @@
                 <div class="lay_hide">
                     <div class="j_lay_top lay_top">
                     </div>
-                    <textarea placeholder="碰到了什么问题，需要什么样的人向你提供什么，10-300字" style="height:80px;width:100%" class="j_editor_content editor_input editor_content">
+                    <textarea ng-model="posterBody" placeholder="碰到了什么问题，需要什么样的人向你提供什么，10-300字" style="height:80px;width:100%" class="j_editor_content editor_input editor_content">
                     </textarea>
                 </div>
             </div>
@@ -66,7 +67,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </form></div>
         
         
     
@@ -160,7 +161,7 @@
                     同意
                 </label>
                 <span onclick="toAbout1()" class="p">
-                    《腾讯公益用户协议》
+                    《用户协议》
                 </span>
             </div>
         </div>
@@ -178,6 +179,8 @@
     
     
         
-     
+    </div>
+    <script src="/static/js/angular.min.js"></script>
+    <script src="/static/js/jianjianbao.js"></script> 
     </body>
 </html>
