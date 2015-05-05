@@ -48,10 +48,19 @@ module.exports = function(app) {
       res.redirect('/login');
     }
   });
+  app.get('/posterpage/:id', function(req, res){
+    if (req.session.user) {
+      res.render('posterpage');
+    } else {
+      req.session.msg = 'Access denied!';
+      res.redirect('/login');
+    }
+  });
   app.post('/signup', users.signup);
   app.post('/user/update', users.updateUser);
   app.post('/user/delete', users.deleteUser);
   app.post('/login', users.login);
   app.get('/user/profile', users.getUserProfile);
   app.post('/poster/add', posters.addPoster);
+  app.get('/api/posterpage/:id/', posters.getPoster); 
 }

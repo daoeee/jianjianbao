@@ -2,8 +2,7 @@ var app=angular.module('jianjianbaoApp', []);
 
 function PosterObj($http) {
   this.addPoster = function(newPoster, callback){
-    alert("subject | body | amount = " + newPoster.subject + "|" + newPoster.body + "|" + newPoster.amount);
-    
+    //alert("subject | body | amount = " + newPoster.subject + "|" + newPoster.body + "|" + newPoster.amount);
     $http.post('/poster/add', {newPoster: newPoster })
     .success(function(data, status, headers, config) {
       callback(null, data);
@@ -28,20 +27,39 @@ app.service('commentSrv', ['$http', PosterObj]);
     });
   }]);
 
-  app.controller('posterController', ['$scope', '$http','commentSrv', 
-                            function($scope, $http, commentSrv) {
+app.controller('posterPageController', ['$scope', '$http', '$window',
+                              function($scope, $http, $window) {
+    var url = $window.location.href;
+    var pattern = /^http:\/\/localhost:8003/;
+    var newURL = url.replace(pattern,"/api");                            
+    $http.get(newURL)
+        .success(function(data, status, headers, config) {
+      $scope.posterSubject = data.subject;
+      $scope.posterBody = data.body;
+      //$scope.error = "";
+    }).
+    error(function(data, status, headers, config) {
+      //$scope.user = {};
+      $scope.error = data;
+    });
+  }]);
+
+  app.controller('posterController', ['$scope', '$http', '$window','commentSrv', 
+                            function($scope, $http, $window,commentSrv) {
      $scope.posterSubject = "";
      $scope.posterBody = "";
+     $scope.posterAmt = "";
      $scope.addPoster = function(subject, body, amount){
       //Same as models/poster_model.js field name
        var newPoster = {subject:subject, body:body, amount:amount};
-       alert("newPoster: " + subject + "|" + body + "|"  + amount );
-       commentSrv.addPoster(newPoster, function(err, newPoster){
+       //alert("newPoster: " + subject + "|" + body + "|"  + amount );
+       commentSrv.addPoster(newPoster, function(err, data){
          if (err) {
 
          } else {
-           $scope.posterSubject = newPoster.subject;
-           $scope.posterBody = newPoster.body;  
+           //$scope.posterSubject = newPoster.subject;
+           //$scope.posterBody = newPoster.body; 
+           $window.location.href = 'http://localhost:8003/posterpage/'+data.posterid; 
          }
        });
      };

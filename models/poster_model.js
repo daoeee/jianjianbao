@@ -1,8 +1,8 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 var PosterSchema = new Schema({
-  //username: {type: String, unique: true},
-  username: String, 
+  username: {type: String, unique: false},
+  //username: String, 
   subject: String,
   //"red envelope amount"
   amount: String,
