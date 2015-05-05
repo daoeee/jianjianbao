@@ -13,7 +13,7 @@ exports.addPoster = function(req, res) {
           //res.redirect("/poster") ;
         } else {
           console.log("new poster save");
+          res.json({posterid:newPoster._id});
         }
-        res.redirect('/');
     });
   };

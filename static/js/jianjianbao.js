@@ -2,6 +2,8 @@ var app=angular.module('jianjianbaoApp', []);
 
 function PosterObj($http) {
   this.addPoster = function(newPoster, callback){
+    alert("subject | body | amount = " + newPoster.subject + "|" + newPoster.body + "|" + newPoster.amount);
+    
     $http.post('/poster/add', {newPoster: newPoster })
     .success(function(data, status, headers, config) {
       callback(null, data);
@@ -30,8 +32,10 @@ app.service('commentSrv', ['$http', PosterObj]);
                             function($scope, $http, commentSrv) {
      $scope.posterSubject = "";
      $scope.posterBody = "";
-     $scope.addPoster = function(subject, body){
-       var newPoster = {subject:subject, body:body};
+     $scope.addPoster = function(subject, body, amount){
+      //Same as models/poster_model.js field name
+       var newPoster = {subject:subject, body:body, amount:amount};
+       alert("newPoster: " + subject + "|" + body + "|"  + amount );
        commentSrv.addPoster(newPoster, function(err, newPoster){
          if (err) {
 
