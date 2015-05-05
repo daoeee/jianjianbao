@@ -27,6 +27,21 @@ app.service('commentSrv', ['$http', PosterObj]);
     });
   }]);
 
+
+app.controller('indexController', ['$scope', '$http', 
+                              function($scope, $http) {
+    $http.get('/api/posterpages/'+$scope.username)
+        .success(function(data, status, headers, config) {
+      $scope.posters = data;
+      $scope.error = "";
+    }).
+    error(function(data, status, headers, config) {
+      $scope.posters = {};
+      $scope.error = data;
+    });
+  }]);
+
+
 app.controller('posterPageController', ['$scope', '$http', '$window',
                               function($scope, $http, $window) {
     var url = $window.location.href;

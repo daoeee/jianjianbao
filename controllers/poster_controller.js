@@ -17,7 +17,7 @@ exports.addPoster = function(req, res) {
 
 
 exports.getPoster = function(req, res) {
-      console.log(req.params.id);
+      //console.log(req.params.id);
       Poster.findOne({_id:req.params.id})
       .exec(function(err, poster) {
         if (!poster){
@@ -25,6 +25,19 @@ exports.getPoster = function(req, res) {
         } else {
           //console.log(poster);
           res.json(poster);
+        }
+      });
+  };
+
+exports.getUserPosters = function(req, res) {
+      //console.log(req.session.username);
+      Poster.find({username:req.session.username})
+      .exec(function(err, posters) {
+        if (!posters){
+          res.json(404,{err:'Posters Not Found.'});
+        } else {
+          //console.log(poster);
+          res.json(posters);
         }
       });
   };

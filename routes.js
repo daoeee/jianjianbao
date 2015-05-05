@@ -63,4 +63,5 @@ module.exports = function(app) {
   app.get('/user/profile', users.getUserProfile);
   app.post('/poster/add', posters.addPoster);
   app.get('/api/posterpage/:id/', posters.getPoster); 
+  app.get('/api/posterpages/:username/',posters.getUserPosters);
 }
