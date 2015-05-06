@@ -67,12 +67,25 @@ app.controller('posterPageController', ['$scope', '$http', '$window',
      $scope.addPoster = function(subject, body, amount){
       //field name before : Same as models/poster_model.js 
        var newPoster = {
-           subject:subject
-           , body:body
-           , "red envelope amount":amount
-           , "红包金额":amount
+          "标题" : subject 
+          , "正文" : body 
+          , "酬谢" : {
+              "方式" : "现金红包"
+              , "红包金额" : amount
+              //, "保证帐户收款流水号" : ["1"]
+              , "红包分配方案" : []
+          }
+          , "提交用户代码" : "1"
+          , "关闭状态" : "是"
+          , "关闭时间戳" : null
        };
-       //alert("newPoster: " + subject + "|" + body + "|"  + amount );
+       
+       //push, addToSet , unshift, pop
+       newPoster.酬谢.红包分配方案.push({"用户代码": "2", "分配金额": 4.00, "支付流水号":["2"]});
+       newPoster.酬谢.红包分配方案.push({"用户代码": "3", "分配金额": 16.00, "支付流水号":["3"]});
+       
+       
+       alert("newPoster: " + subject + "|" + body + "|"  + amount );
        commentSrv.addPoster(newPoster, function(err, data){
          if (err) {
 
