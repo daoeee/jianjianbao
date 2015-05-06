@@ -6,15 +6,16 @@
       href="/static/css/styles.css" />
 </head>
 <body>
-  <div ng-controller="userController">
+  <div ng-controller="indexController">
     <h2>Welcome to JianJianBao, <%= username %></h2>
     <a href="/logout">logout</a>
     <a href="/user">Edit User</a>
     <a href="/poster">Make Poster</a>
-  </div>
-  <div ng-controller="posterController">
     <form>
-      <textarea ng-model="posterBody"></textarea>
+      <li ng-repeat='poster in posters'>
+      <textarea ng-model="poster.subject"></textarea>
+      <textarea ng-model="poster.body"></textarea>
+      </li>
     </form>  
   </div>
   <script src="/static/js/angular.min.js"></script>
