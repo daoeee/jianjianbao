@@ -65,8 +65,13 @@ app.controller('posterPageController', ['$scope', '$http', '$window',
      $scope.posterBody = "";
      $scope.posterAmt = "";
      $scope.addPoster = function(subject, body, amount){
-      //Same as models/poster_model.js field name
-       var newPoster = {subject:subject, body:body, amount:amount};
+      //field name before : Same as models/poster_model.js 
+       var newPoster = {
+           subject:subject
+           , body:body
+           , "red envelope amount":amount
+           , "红包金额":amount
+       };
        //alert("newPoster: " + subject + "|" + body + "|"  + amount );
        commentSrv.addPoster(newPoster, function(err, data){
          if (err) {
