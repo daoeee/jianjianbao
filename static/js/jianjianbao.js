@@ -49,8 +49,8 @@ app.controller('posterPageController', ['$scope', '$http', '$window',
     var newURL = url.replace(pattern,"/api");                            
     $http.get(newURL)
         .success(function(data, status, headers, config) {
-      $scope.posterSubject = data.subject;
-      $scope.posterBody = data.body;
+      $scope.posterSubject = data.标题;
+      $scope.posterBody = data.正文;
       //$scope.error = "";
     }).
     error(function(data, status, headers, config) {

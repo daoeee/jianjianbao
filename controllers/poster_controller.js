@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
 
 exports.addPoster = function(req, res) {
       var newPoster = new Poster(req.body.newPoster);
-      newPoster.username = req.session.username;
+      newPoster.提交用户代码 = req.session.username;
       newPoster.save(function(err){
         if (err) {
           console.log(err);
@@ -31,7 +31,7 @@ exports.getPoster = function(req, res) {
 
 exports.getUserPosters = function(req, res) {
       //console.log(req.session.username);
-      Poster.find({username:req.session.username})
+      Poster.find({提交用户代码:req.session.username})
       .exec(function(err, posters) {
         if (!posters){
           res.json(404,{err:'Posters Not Found.'});
