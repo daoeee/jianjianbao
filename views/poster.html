@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- daoeee.com Copy right -->
 
-<html>
+<html ng-app="jianjianbaoApp">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
@@ -17,36 +17,31 @@
   <!-- 自定义CSS--->
   <link rel="stylesheet" href="../static/css/main.css">
   
+  <!-- angular js -->  
+  <script src="/static/js/angular.min.js"></script>
+  <script src="/static/js/jianjianbao.js"></script> 
+  
   <script>
     $(document).on("pagebeforeshow","#海报主界面",function(){
       //history.pushState("", "Title", "poster/1?visitor=1");
       //history.replaceState("", "Title", "/user");
       //history.pushState("", "Title", "#id=1&visitor=1");
     });
-    $(document).on("pagebeforeshow","#海报主界面1",function(){
-      //history.pushState("", "Title", "poster/2?visitor2");
-      //history.replaceState("", "Title", "/user");
-      //history.pushState("", "Title", "#id=2&visitor=2");
-    });
     $(document).on("pageshow","#海报主界面",function(){
       //history.pushState("", "Title", "poster/1?visitor=1");
       //history.replaceState("", "Title", "./poster?id=1&visitor=1");
       //history.pushState("", "Title", "#id=1&visitor=1");
     });
-    $(document).on("pageshow","#海报主界面1",function(){
-      //history.pushState("", "Title", "poster/2?visitor2");
-      //history.pushState("", "Title", "#id=2&visitor=2");
-    });
   </script>
 </head>
-<body>
-
+<body ng-controller="posterController">
+  
 <div data-role="page" id="海报主界面"
      data-title="万元求抱校园大学生运营合伙人"
      data-url="http://poster/1">
   
   <div data-role="content">
-    <p>万元求抱校园大学生运营合伙人</p>
+    <p>{{posterid}}</p>
   </div>
   
   <!-- 页脚：开始 -->
@@ -90,52 +85,6 @@
   
 </div>
 
-<div data-role="page" id="海报主界面1" data-title="求15级国际金融沈女神手机号码" data-url="www.baidu.com/new-url">
-  
-  <div data-role="content">
-    <p>点击链接来查看滑动效果。</p>
-  </div>
-  
-  <!-- 页脚：开始 -->
-  <div data-role="footer" data-position="fixed">
-    <div class="ui-grid-c center">
-      <div class="ui-block-a">
-        <a href="#"
-          data-role="button"
-          data-icon="action"
-          data-iconpos="top"
-          data-inline="true"
-          >转发有礼</a>
-      </div>
-      <div class="ui-block-b">
-        <a href="#海报发布界面" data-transition="slideup"
-          data-role="button"
-          data-icon="edit"
-          data-iconpos="top"
-          data-inline="true"
-          >我要发榜</a>
-      </div>
-      <div class="ui-block-c">
-        <a href="#"
-          data-role="button"
-          data-icon="comment"
-          data-iconpos="top"
-          data-inline="true"
-          >　留言　</a>
-      </div>
-      <div class="ui-block-d">
-        <a href="#"
-          data-role="button"
-          data-icon="grid"
-          data-iconpos="top"
-          data-inline="true"
-          >　更多　</a>
-      </div>
-    </div>
-  </div>
-  <!-- 页脚：结束 -->
-</div> 
-
 <div data-role="page" id="海报发布界面"
      data-title="发布"
      data-url="http://poster/1/poster?method=new">
@@ -144,10 +93,13 @@
     <form>
       
       <label for="text-8" class="ui-hidden-accessible"></label>
-      <input type="text" name="text-8" id="text-8" value="" placeholder="标题，6-30字">
-      
+      <input type="text" name="posterSubject" id="text-8"
+             ng-model="posterSubject" value="" placeholder="标题，6-30字">
+        
       <label for="textarea-8" class="ui-hidden-accessible"></label>
-      <textarea cols="40" rows="8" name="textarea-8" id="textarea-8" placeholder="碰到了什么问题，需要什么样的人向你提供什么，10-300字"></textarea>
+      <textarea name="textarea-8" id="textarea-8"
+                cols="40" rows="8"
+                ng-model="posterBody" placeholder="碰到了什么问题，需要什么样的人向你提供什么，10-300字"></textarea>
       
       <div class="ui-grid-d center">
         <div class="ui-block-a">
@@ -175,15 +127,16 @@
         <!--label for="amt10">10元</label>
         <input type="radio" name="gender" id="amt10" value="10"-->
         <label for="amt20">20元</label>
-        <input type="radio" name="红包金额" id="amt20" value="20">
+        <input type="radio" ng-model="posterAmt" name="红包金额" id="amt20" value="20">
         <label for="amt50">50元</label>
-        <input type="radio" name="红包金额" id="amt50" value="50">
+        <input type="radio" ng-model="posterAmt" name="红包金额" id="amt50" value="50">
         <label for="amt100">100元</label>
-        <input type="radio" name="红包金额" id="amt100" value="100">
+        <input type="radio" ng-model="posterAmt" name="红包金额" id="amt100" value="100">
         <label for="amt500">500元</label>
-        <input type="radio" name="红包金额" id="amt500" value="500">
+        <input type="radio" ng-model="posterAmt" name="红包金额" id="amt500" value="500">
         <label for="text-8" class="ui-hidden-accessible"></label>
-        <input type="number" name="红包金额" id="amtkeyin" value="" placeholder="其它金额，单位：元">
+        <input type="number" name="红包金额" id="amtkeyin"
+               value="" ng-model="posterAmt" placeholder="其它金额，单位：元">
       </fieldset>
       
       <p></p>
@@ -201,16 +154,17 @@
         <a href="#海报主界面"
           data-role="button" data-inline="true"
           data-icon="delete" data-iconpos="left"
-          data-rel="back" data-transition="slidedown"
+          data-transition="slidedown"
           >取消</a>
       </div>
       <div class="ui-block-b"></div>
       <div class="ui-block-c"></div>
       <div class="ui-block-d">
-        <a href="#海报主界面1"
+        <a href="#海报主界面"
           data-role="button" data-inline="true"
           data-icon="action" data-iconpos="right"
           data-transition="slidedown"
+          ng-click="addPoster(posterSubject,posterBody, posterAmt)"
        >提交</a>
       </div>
     </div>
