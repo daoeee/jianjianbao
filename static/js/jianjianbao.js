@@ -14,18 +14,18 @@ function PosterObj($http) {
 
 app.service('commentSrv', ['$http', PosterObj]);
   
-  app.controller('userController', ['$scope', '$http', 
-                              function($scope, $http) {
-    $http.get('/user/profile')
-        .success(function(data, status, headers, config) {
-      $scope.user = data;
-      $scope.error = "";
-    }).
-    error(function(data, status, headers, config) {
-      $scope.user = {};
-      $scope.error = data;
-    });
-  }]);
+app.controller('userController', ['$scope', '$http', 
+                            function($scope, $http) {
+  $http.get('/user/profile')
+      .success(function(data, status, headers, config) {
+    $scope.user = data;
+    $scope.error = "";
+  }).
+  error(function(data, status, headers, config) {
+    $scope.user = {};
+    $scope.error = data;
+  });
+}]);
 
 
 app.controller('indexController', ['$scope', '$http', 
@@ -64,6 +64,9 @@ app.controller('posterPageController', ['$scope', '$http', '$window',
      $scope.posterSubject = "";
      $scope.posterBody = "";
      $scope.posterAmt = "";
+     
+     $scope.posterid = "万元求抱校园大学生运营合伙人";
+     
      $scope.addPoster = function(subject, body, amount){
       //field name before : Same as models/poster_model.js 
        var newPoster = {
@@ -84,15 +87,21 @@ app.controller('posterPageController', ['$scope', '$http', '$window',
        newPoster.酬谢.红包分配方案.push({"用户代码": "2", "分配金额": 4.00, "支付流水号":["2"]});
        newPoster.酬谢.红包分配方案.push({"用户代码": "3", "分配金额": 16.00, "支付流水号":["3"]});
        
-       
-       alert("newPoster: " + subject + "|" + body + "|"  + amount );
+       // alert("newPoster: " + subject + "|" + body + "|"  + amount );
        commentSrv.addPoster(newPoster, function(err, data){
+        
+        
          if (err) {
 
          } else {
+          
+          $scope.posterid = data.posterid;
+          
+          history.replaceState("", "Title", "#id="+ data.posterid +"&visitor=1");
+          
            //$scope.posterSubject = newPoster.subject;
            //$scope.posterBody = newPoster.body; 
-           $window.location.href = 'http://localhost:8003/posterpage/'+data.posterid; 
+           //$window.location.href = 'http://localhost:8003/posterpage/'+data.posterid; 
          }
        });
      };

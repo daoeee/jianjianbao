@@ -1,189 +1,182 @@
 <!DOCTYPE html>
 <!-- daoeee.com Copy right -->
+
 <html ng-app="jianjianbaoApp">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
-        <meta name="format-detection" content="telephone=no">
-        <title>发布</title>
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="mobile-web-app-capable" content="yes">
-        <!--css-->
-        <link rel="stylesheet" href="../static/css/common_0608668.css">
-        <link rel="stylesheet" href="../static/css/css1.css">
-        <link rel="stylesheet" href="../static/css/css2.css">
-        <link rel="stylesheet" href="../static/css/paybox.css">
-    </head>
-    <body class="ue_revision portrait">
-    <div ng-controller="posterController">
-        
-    <div class="j_top_bar blue_kit j_postor_blue_head">
-        <div class="blue_kit_left">
-            <a class="blue_kit_btn blue_kit_btn_back j_postor_blue_kit_btn_return"
-            href="javascript:;">
-                <span class="blue_kit_text">
-                    返回
-                </span>
-            </a>
-        </div>
-        <div class="blue_kit_right">
-            <a class="blue_kit_text" ng-click="addPoster(posterSubject,posterBody, posterAmt)">
-                提交&nbsp
-            </a>
-        </div>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  
+  <!-- jquery mobile -->  
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+  <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  
+  <!-- 自定义CSS--->
+  <link rel="stylesheet" href="../static/css/main.css">
+  
+  <!-- angular js -->  
+  <script src="/static/js/angular.min.js"></script>
+  <script src="/static/js/jianjianbao.js"></script> 
+  
+  <script>
+    $(document).on("pagebeforeshow","#海报主界面",function(){
+      //history.pushState("", "Title", "poster/1?visitor=1");
+      //history.replaceState("", "Title", "/user");
+      //history.pushState("", "Title", "#id=1&visitor=1");
+    });
+    $(document).on("pageshow","#海报主界面",function(){
+      //history.pushState("", "Title", "poster/1?visitor=1");
+      //history.replaceState("", "Title", "./poster?id=1&visitor=1");
+      //history.pushState("", "Title", "#id=1&visitor=1");
+    });
+  </script>
+</head>
+<body ng-controller="posterController">
+  
+<div data-role="page" id="海报主界面"
+     data-title="万元求抱校园大学生运营合伙人"
+     data-url="http://poster/1">
+  
+  <div data-role="content">
+    <p>{{posterid}}</p>
+  </div>
+  
+  <!-- 页脚：开始 -->
+  <div data-role="footer" data-position="fixed">
+    <div class="ui-grid-c center">
+      <div class="ui-block-a">
+        <a href="#"
+          data-role="button"
+          data-icon="action"
+          data-iconpos="top"
+          data-inline="true"
+          >转发有礼</a>
+      </div>
+      <div class="ui-block-b">
+        <a href="#海报发布界面" data-transition="slideup"
+          data-role="button"
+          data-icon="edit"
+          data-iconpos="top"
+          data-inline="true"
+          >我要发榜</a>
+      </div>
+      <div class="ui-block-c">
+        <a href="#"
+          data-role="button"
+          data-icon="comment"
+          data-iconpos="top"
+          data-inline="true"
+          >　留言　</a>
+      </div>
+      <div class="ui-block-d">
+        <a href="#"
+          data-role="button"
+          data-icon="grid"
+          data-iconpos="top"
+          data-inline="true"
+          >　更多　</a>
+      </div>
     </div>
+  </div>
+  <!-- 页脚：结束 -->
+  
+</div>
+
+<div data-role="page" id="海报发布界面"
+     data-title="发布"
+     data-url="http://poster/1/poster?method=new">
+
+  <div data-role="content">
+    <form>
+      
+      <label for="text-8" class="ui-hidden-accessible"></label>
+      <input type="text" name="posterSubject" id="text-8"
+             ng-model="posterSubject" value="" placeholder="标题，6-30字">
         
-    <div id="j_main_editor_container" class="editor_panel overthrow" style="height:640px;width:100%">
-        <div class="j_editor editor"><form>
-            <div class="j_editor_title_panel editor_title_panel">
-                <input type="text" ng-model="posterSubject" value="" placeholder="标题，6-30字" class="j_editor_input editor_input editor_title">
-            </div>
-            <div class="j_editor_title_panel editor_title_panel">
-                <input type="number" ng-model="posterAmt" value="12.01" step="0.01" placeholder="标题，6-30字" class="j_editor_input editor_input editor_title">
-            </div>
-            <div class="j_editor_content_panel editor_content_panel">
-                <div class="j_savedraft_panel savedraft_panel">
-                </div>
-                <div class="lay_hide">
-                    <div class="j_lay_top lay_top">
-                    </div>
-                    <textarea ng-model="posterBody" placeholder="碰到了什么问题，需要什么样的人向你提供什么，10-300字" style="height:80px;width:100%" class="j_editor_content editor_input editor_content">
-                    </textarea>
-                </div>
-            </div>
-            <div class="j_editor_bottom_panel editor_bottom_panel clearfix">
-                <div class="editor_btn_list">
-                    <div class="j_media_bar media_bar">
-                        <div class="j_voice_btn_panel voice_btn_panel">
-                        </div>
-                        <div class="j_pic_btn_panel pic_btn_panel" style="display: inline-block;">
-                            <a class="upload-block enable" href="javascript:;">
-                                <span class="media_bar_btn_text">照片</span><input type="file" name="pic" id="pic" accept="image/*" class="upload-input">
-                                <span class="upload-block-count"></span></a>
-                            <a class="upload-block multi enable" href="javascript:;">
-                                <span class="media_bar_btn_text">图片</span>
-                                <input class="upload-input" type="file" accept="image/*" multiple="multiple" style="opacity: 0;">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="j_submit_btn_panel submit_btn_panel">
-                    </div>
-                </div>
-            </div>
-        </form></div>
-        
-        
+      <label for="textarea-8" class="ui-hidden-accessible"></label>
+      <textarea name="textarea-8" id="textarea-8"
+                cols="40" rows="8"
+                ng-model="posterBody" placeholder="碰到了什么问题，需要什么样的人向你提供什么，10-300字"></textarea>
+      
+      <div class="ui-grid-d center">
+        <div class="ui-block-a">
+        </div>
+        <div class="ui-block-b">
+        </div>
+        <div class="ui-block-c"></div>
+        <div class="ui-block-d">
+          <a class="ui-shadow ui-btn ui-corner-all ui-icon-grid ui-btn-icon-notext ui-btn-inline">图片</a>
+        </div>
+        <div class="ui-block-e">
+          <a class="ui-shadow ui-btn ui-corner-all ui-icon-camera ui-btn-icon-notext ui-btn-inline">拍照</a>
+        </div>
+      </div>
+      <p></p>
+      
+      <fieldset data-role="controlgroup" data-type="horizontal">
+        <label for="现金红包">现金红包</label>
+        <input type="radio" name="酬谢形式" id="现金红包" value="现金红包" checked="checked">
+        <label for="其它酬谢形式">其它酬谢形式</label>
+        <input type="radio" name="酬谢形式" id="其它酬谢形式" value="其它" disabled="disabled">
+      </fieldset>
+      
+      <fieldset data-role="controlgroup" data-type="horizontal">
+        <!--label for="amt10">10元</label>
+        <input type="radio" name="gender" id="amt10" value="10"-->
+        <label for="amt20">20元</label>
+        <input type="radio" ng-model="posterAmt" name="红包金额" id="amt20" value="20">
+        <label for="amt50">50元</label>
+        <input type="radio" ng-model="posterAmt" name="红包金额" id="amt50" value="50">
+        <label for="amt100">100元</label>
+        <input type="radio" ng-model="posterAmt" name="红包金额" id="amt100" value="100">
+        <label for="amt500">500元</label>
+        <input type="radio" ng-model="posterAmt" name="红包金额" id="amt500" value="500">
+        <label for="text-8" class="ui-hidden-accessible"></label>
+        <input type="number" name="红包金额" id="amtkeyin"
+               value="" ng-model="posterAmt" placeholder="其它金额，单位：元">
+      </fieldset>
+      
+      <p></p>
+      
+      <input type="checkbox" name="checkbox-mini-0" id="checkbox-mini-0" data-mini="true" checked="checked">
+      <label for="checkbox-mini-0">同意《用户协议》</label>
+      
+    </form>
     
-        <div class="j_tab_sub_message">
-            <div class="tab tab_default j_tab_button j_tab_head">
-                <a class="j_tab_btn_item tab_item j_tab_head_item active" data-event="" href="javascript:;">现金红包</a>
-                <a class="j_tab_btn_item tab_item j_tab_head_item" data-event="" href="javascript:;">其它酬谢形式</a>
-            </div>
-            <div class="j_tab_content">
-                <div class="j_tab_content_item">
-                    
-                    <div style="margin-top:-19px;background:#fafbfc">            
-        <div class="box" id="pay_donate_s">
-            <div style="height:19px"></div>
-            <table class="tb">
-                <tbody>
-                    <tr>
-                        <td>
-                            <div t="20" class="sel l ed">
-                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABBJREFUeNpi/P//PwNAgAEACQEC/2m8kPAAAAAASUVORK5CYII="
-                                class="and_img_detail and_yqj_selected">
-                                <span>
-                                    20
-                                </span>
-                                元
-                            </div>
-                        </td>
-                        <td>
-                            <div t="50" class="sel l">
-                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABBJREFUeNpi/P//PwNAgAEACQEC/2m8kPAAAAAASUVORK5CYII="
-                                class="and_img_detail and_yqj_selected">
-                                <span>
-                                    50
-                                </span>
-                                元
-                            </div>
-                        </td>
-                        <td>
-                            <div t="100" class="sel l">
-                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABBJREFUeNpi/P//PwNAgAEACQEC/2m8kPAAAAAASUVORK5CYII="
-                                class="and_img_detail and_yqj_selected">
-                                <span>
-                                    100
-                                </span>
-                                元
-                            </div>
-                        </td>
-                        <td>
-                            <div t="500" class="sel l">
-                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABBJREFUeNpi/P//PwNAgAEACQEC/2m8kPAAAAAASUVORK5CYII="
-                                class="and_img_detail and_yqj_selected">
-                                <span>
-                                    500
-                                </span>
-                                元
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="4">
-                            <div style="height:5px;">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="4">
-                            <div t="0" class="sel l">
-                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABBJREFUeNpi/P//PwNAgAEACQEC/2m8kPAAAAAASUVORK5CYII="
-                                class="and_img_detail and_yqj_selected">
-                                <div class="fl" style="margin-left:8px">
-                                    其他
-                                </div>
-                                <div class="fr" style="margin-right:8px">
-                                    元
-                                </div>
-                                　
-                                <div style="display:inline-block;">
-                                    <input type="number" id="money">
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <div class="prot" style="margin-top:15px;">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABBJREFUeNpi/P//PwNAgAEACQEC/2m8kPAAAAAASUVORK5CYII="
-                class="check and_img_detail and_detail_icon_8_checked">
-                <input type="checkbox" id="check" name="check" checked="checked" class="none">
-                <label for="check">
-                    同意
-                </label>
-                <span onclick="toAbout1()" class="p">
-                    《用户协议》
-                </span>
-            </div>
-        </div>
-        </div>
-                   
-                </div>
-            </div>
-        </div>
-        
-        
-        
-        
-        
+
+  <!-- 页脚：开始-->
+  <div data-role="footer" data-position="fixed">
+    <div class="ui-grid-c center">
+      <div class="ui-block-a">
+        <a href="#海报主界面"
+          data-role="button" data-inline="true"
+          data-icon="delete" data-iconpos="left"
+          data-transition="slidedown"
+          >取消</a>
+      </div>
+      <div class="ui-block-b"></div>
+      <div class="ui-block-c"></div>
+      <div class="ui-block-d">
+        <a href="#海报主界面"
+          data-role="button" data-inline="true"
+          data-icon="action" data-iconpos="right"
+          data-transition="slidedown"
+          ng-click="addPoster(posterSubject,posterBody, posterAmt)"
+       >提交</a>
+      </div>
     </div>
-    
-    
-        
-    </div>
-    <script src="/static/js/angular.min.js"></script>
-    <script src="/static/js/jianjianbao.js"></script> 
-    </body>
+  </div>
+  <!-- 页脚：结束-->
+  
+</div> 
+
+<script>
+  //alert("run ok!");
+  //history.pushState("", "Title", "www.baidu.com/new-url");
+</script>
+
+</body>
 </html>
