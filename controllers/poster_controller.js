@@ -25,8 +25,8 @@ exports.getPoster = function(req, res) {
   if(req.session.user){
     Poster.findOne({_id:req.params.id})
     .exec(function(err, poster) {
-      console.log(req.session.user);
-      console.log(poster.create_userid);
+      //console.log(req.session.user);
+      //console.log(poster.create_userid);
       if(req.session.user == poster.create_userid) {
         if (!poster){
           res.json(404,{errcode:1001});
@@ -43,16 +43,20 @@ exports.getPoster = function(req, res) {
 };
 
 exports.getUserPosters = function(req, res) {
-      //console.log(req.session.username);
-      Poster.find({提交用户代码:req.session.username})
-      .exec(function(err, posters) {
-        if (!posters){
-          res.json(404,{err:'Posters Not Found.'});
-        } else {
-          //console.log(poster);
-          res.json(posters);
-        }
-      });
-  };
+  if(req.session.user == req.params.id){
+    //console.log(req.session.username);
+    Poster.find({create_userid:req.params.id})
+    .exec(function(err, posters) {
+      if (!posters){
+        res.json(404,{errcode:1001});
+      } else {
+        //console.log(poster);
+        res.json(posters);
+      }
+    });
+  }else {
+    res.json(403,{errorcode:1001});
+  }
+};
   
 

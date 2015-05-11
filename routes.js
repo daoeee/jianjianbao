@@ -71,7 +71,7 @@ module.exports = function(app) {
   //app.post('/api/v1/poster/:id',poster.uploadImage);
   app.get('/api/v1/poster/:id',poster.getPoster);
   //app.get('/api/v1/poster/:id/comments',poster.getComments);
-  //app.get('/api/v1/poster/user_created/:id',poster.getUserPosters);
+  app.get('/api/v1/poster/user_created/:id',poster.getUserPosters);
   //app.post('/api/v1/poster/:id/forward', poster.actForward); 
   //app.delete('/api/v1/poster/:id/unforward/',poster.actUnForward);
 }
