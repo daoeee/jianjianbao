@@ -2,7 +2,7 @@ var crypto = require('crypto');
 var express = require('express');
 module.exports = function(app) {
   var users = require('./controllers/users_controller');
-  var posters = require('./controllers/poster_controller');
+  var poster = require('./controllers/poster_controller');
   app.use('/static', express.static( './static')).
       use('/lib', express.static( '../lib')
   );
@@ -56,12 +56,22 @@ module.exports = function(app) {
       res.redirect('/login');
     }
   });
+
+  //User API
   app.post('/signup', users.signup);
   app.post('/user/update', users.updateUser);
   app.post('/user/delete', users.deleteUser);
   app.post('/login', users.login);
   app.get('/user/profile', users.getUserProfile);
-  app.post('/poster/add', posters.addPoster);
-  app.get('/api/posterpage/:id/', posters.getPoster); 
-  app.get('/api/posterpages/:username/',posters.getUserPosters);
+
+  //poster API
+  app.post('/api/v1/poster', poster.addPoster);
+  //app.delete('/api/v1/poster/;id',poster.delPoster);
+  //app.put('/api/v1/poster/:id',poster.updatePoster);
+  //app.post('/api/v1/poster/:id',poster.uploadImage);
+  app.get('/api/v1/poster/:id',poster.getPoster);
+  //app.get('/api/v1/poster/:id/comments',poster.getComments);
+  //app.get('/api/v1/poster/user_created/:id',poster.getUserPosters);
+  //app.post('/api/v1/poster/:id/forward', poster.actForward); 
+  //app.delete('/api/v1/poster/:id/unforward/',poster.actUnForward);
 }

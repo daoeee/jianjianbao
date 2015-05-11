@@ -3,7 +3,7 @@ var app=angular.module('jianjianbaoApp', []);
 function PosterObj($http) {
   this.addPoster = function(newPoster, callback){
     //alert("subject | body | amount = " + newPoster.subject + "|" + newPoster.body + "|" + newPoster.amount);
-    $http.post('/poster/add', {newPoster: newPoster })
+    $http.post('/api/v1/poster', {newPoster: newPoster })
     .success(function(data, status, headers, config) {
       callback(null, data);
     })
@@ -49,8 +49,8 @@ app.controller('posterPageController', ['$scope', '$http', '$window',
     var newURL = url.replace(pattern,"/api");                            
     $http.get(newURL)
         .success(function(data, status, headers, config) {
-      $scope.posterSubject = data.标题;
-      $scope.posterBody = data.正文;
+      $scope.posterSubject = data.subject;
+      $scope.posterBody = data.body;
       //$scope.error = "";
     }).
     error(function(data, status, headers, config) {
@@ -70,22 +70,22 @@ app.controller('posterPageController', ['$scope', '$http', '$window',
      $scope.addPoster = function(subject, body, amount){
       //field name before : Same as models/poster_model.js 
        var newPoster = {
-          "标题" : subject 
-          , "正文" : body 
-          , "酬谢" : {
-              "方式" : "现金红包"
-              , "红包金额" : amount
+          "subject" : subject 
+          , "body" : body 
+          , "tip" : {
+              "method" : "现金红包"
+              , "tip_amount" : amount
               //, "保证帐户收款流水号" : ["1"]
-              , "红包分配方案" : []
+              , "tip_method" : []
           }
-          , "提交用户代码" : "1"
-          , "关闭状态" : "是"
-          , "关闭时间戳" : null
+          , "create_userid" : "1"
+          , "close_status" : "是"
+          , "close_timestamp" : null
        };
        
        //push, addToSet , unshift, pop
-       newPoster.酬谢.红包分配方案.push({"用户代码": "2", "分配金额": 4.00, "支付流水号":["2"]});
-       newPoster.酬谢.红包分配方案.push({"用户代码": "3", "分配金额": 16.00, "支付流水号":["3"]});
+       newPoster.tip.tip_method.push({"userid": "2", "tip_amount": 4.00, "pay_id":["2"]});
+       newPoster.tip.tip_method.push({"userid": "3", "tip_amount": 16.00, "pay_id":["3"]});
        
        // alert("newPoster: " + subject + "|" + body + "|"  + amount );
        commentSrv.addPoster(newPoster, function(err, data){
