@@ -66,7 +66,7 @@ module.exports = function(app) {
 
   //poster API
   app.post('/api/v1/poster', poster.addPoster);
-  //app.delete('/api/v1/poster/;id',poster.delPoster);
+  app.delete('/api/v1/poster/:id',poster.delPoster);
   //app.put('/api/v1/poster/:id',poster.updatePoster);
   //app.post('/api/v1/poster/:id',poster.uploadImage);
   app.get('/api/v1/poster/:id',poster.getPoster);
