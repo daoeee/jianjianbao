@@ -72,8 +72,6 @@ exports.delPoster = function(req, res) {
 };
 
 exports.updatePoster = function(req, res) {
-  console.log(req.body.newPoster);
-  req.body.newPoster = {"subject":"testtestasdfasdfasdf"};
   if(req.session.user){
     Poster.findOne({_id:req.params.id})
     .exec(function(err, poster) {

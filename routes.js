@@ -1,5 +1,6 @@
 var crypto = require('crypto');
 var express = require('express');
+var multer = require('multer');
 module.exports = function(app) {
   var users = require('./controllers/users_controller');
   var poster = require('./controllers/poster_controller');
