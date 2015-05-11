@@ -71,6 +71,37 @@ exports.delPoster = function(req, res) {
   }    
 };
 
+exports.updatePoster = function(req, res) {
+  console.log(req.body.newPoster);
+  req.body.newPoster = {"subject":"testtestasdfasdfasdf"};
+  if(req.session.user){
+    Poster.findOne({_id:req.params.id})
+    .exec(function(err, poster) {
+        if(err){
+          res.json(400,{errcode:1006});
+        } else {
+          if (!poster){
+            res.json(400,{errcode:1006});
+          } else {
+              if(req.session.user == poster.create_userid) {
+                poster.update(req.body.newPoster,function(err){
+                  if(err) {
+                    res.json(400,{errorcode:1006});
+                  } else {
+                    res.json(200,poster);
+                  }
+                });
+              }else {
+                res.json(403,{errorcode:1000});
+              }
+          }  
+        } 
+      }); 
+  }else {
+    res.json(403,{errorcode:1000});
+  }    
+};
+
 
 exports.getUserPosters = function(req, res) {
   if(req.session.user == req.params.id){
