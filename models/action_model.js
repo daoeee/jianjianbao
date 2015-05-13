@@ -1,5 +1,4 @@
 var mongoose = require('mongoose'),
-    //tree = require('mongoose-tree'),
     materializedPlugin = require('mongoose-materialized'),
     Schema = mongoose.Schema;
 
@@ -13,6 +12,5 @@ var ActionSchema = new Schema({
     } ]
 }, { _id: true });
 
-//ActionSchema.plugin(tree);
 ActionSchema.plugin(materializedPlugin);
 mongoose.model('Action', ActionSchema);
