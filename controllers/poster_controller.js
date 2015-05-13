@@ -29,6 +29,7 @@ exports.getPoster = function(req, res) {
         if (!poster){
           res.json(400,{errcode:1006});
         } else {
+          console.log(poster.create_userid);
           if(req.session.user == poster.create_userid) {
             res.json(200,poster);
           } else {
