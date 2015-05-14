@@ -1,24 +1,41 @@
-<!doctype html>
-<html ng-app="jianjianbaoApp">
-<head>
-  <title>User Login and Sessions</title>
-  <link rel="stylesheet" type="text/css" 
-      href="/static/css/styles.css" />
-</head>
-<body>
-  <div ng-controller="indexController">
-    <h2>Welcome to JianJianBao, <%= username %></h2>
-    <a href="/logout">logout</a>
-    <a href="/user">Edit User</a>
-    <a href="/poster">Make Poster</a>
-    <form>
-      <li ng-repeat='poster in posters'>
-      <textarea ng-model="poster."标题""></textarea>
-      <textarea ng-model="poster."正文""></textarea>
-      </li>
-    </form>  
-  </div>
-  <script src="/static/js/angular.min.js"></script>
-  <script src="/static/js/jianjianbao.js"></script>
-</body>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="yes" />
+    
+    <link rel="stylesheet" href="/static/mauiwww/css/app.min.css" />
+    <link rel="stylesheet" href="/static/mauiwww/css/responsive.min.css" />
+    
+    <script src="/static/mauiwww/js/app.min.js"></script>
+  </head>
+  <body ng-app="Jianjianbao" ng-controller="MainController">
+    <div class="app">
+      
+      <!-- Navbars -->
+
+      <div class="navbar navbar-app navbar-absolute-bottom">
+        <div class="btn-group justified" ui-yield-to="navbarAction">
+          <a href="#/" class="btn btn-navbar"><i class="fa fa-share-alt fa-navbar"></i> 转发有礼</a>
+          <a href="#/signin" class="btn btn-navbar"><i class="fa fa-edit fa-navbar"></i> 我要发榜</a>
+          <a href="#/" class="btn btn-navbar"><i class="fa fa-comment fa-navbar"></i> 留言</a>
+          <a href="#/" class="btn btn-navbar"><i class="fa fa-th fa-navbar"></i> 更多</a>
+        </div>
+      </div>
+
+      <!-- App Body -->
+      <div class="app-body">
+        <div class="app-content">
+          <ng-view></ng-view>  
+        </div>
+      </div>
+
+    </div><!-- ~ .app -->
+
+    <div ui-yield-to="modals"></div>
+  </body>
 </html>
