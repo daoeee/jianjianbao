@@ -6,6 +6,7 @@ var mongoStore = require('connect-mongo')({session: expressSession});
 var mongoose = require('mongoose');
 require('./models/users_model.js');
 require('./models/poster_model.js');
+require('./models/action_model.js');
 var conn = mongoose.connect('mongodb://localhost/jianjianbao');
 var app = express();
 app.engine('.html', require('ejs').__express);
