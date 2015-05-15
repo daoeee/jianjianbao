@@ -2,6 +2,7 @@
  <div class="scrollable-content section">
     <form role="form" ng-submit="createPoster()">
             <fieldset>
+                <legend>创建一张新的海报</legend>
                   <div class="form-group">
                     <input type="text"
                            ng-model="poster.subject"
@@ -10,7 +11,7 @@
                   </div>
           
                   <div class="form-group">
-                    <textarea class="form-control" ng-model="posterBody"
+                    <textarea class="form-control" ng-model="poster.body"
                               placeholder="碰到了什么问题，需要什么样的人向你提供什么，10-300字"></textarea>
                   </div>
                   
@@ -77,7 +78,7 @@
     
 <div ui-content-for="navbarAction">
     <div class="btn-group pull-left">
-      <a href="#/" class="btn btn-navbar">
+      <a href="#{{posterMainPath}}" class="btn btn-navbar">
         <i class="fa fa-chevron-left"></i> 返回
       </a>
     </div>

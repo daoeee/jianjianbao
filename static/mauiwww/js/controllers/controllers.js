@@ -1,18 +1,48 @@
 
 app.controller('AppMainCtrl', function($rootScope){
     $rootScope.poster = {};
+    $rootScope.posterMainPath = "/";
 });
 
 app.controller('WelcomeCtrl', function(){
     document.title = "荐荐宝";
 });
 
-app.controller('PosterMainCtrl', function($rootScope, $routeParams){
+app.controller('PosterMainCtrl', function($scope, $rootScope, $routeParams){
     
     document.title = $rootScope.poster.subject;
     
     console.log("PosterMainCtrl: id=" + $routeParams.id);
     console.log("PosterMainCtrl: vnode=" + $routeParams.vnode);
+    
+    
+    $scope.cells = [
+        { name: 'Carlos  Flowers', online: true },
+        { name: 'Byron Taylor', online: true },
+        { name: 'Jana  Terry', online: true },
+        { name: 'Darryl  Stone', online: true },
+        { name: 'Fannie  Carlson', online: true },
+        { name: 'Holly Nguyen', online: true },
+        { name: 'Bill  Chavez', online: true },
+        { name: 'Veronica  Maxwell', online: true },
+        { name: 'Jessica Webster', online: true },
+        { name: 'Jackie  Barton', online: true },
+        { name: 'Crystal Drake', online: false },
+        { name: 'Milton  Dean', online: false },
+        { name: 'Joann Johnston', online: false },
+        { name: 'Cora  Vaughn', online: false },
+        { name: 'Nina  Briggs', online: false },
+        { name: 'Casey Turner', online: false },
+        { name: 'Jimmie  Wilson', online: false },
+        { name: 'Nathaniel Steele', online: false },
+        { name: 'Aubrey  Cole', online: false },
+        { name: 'Donnie  Summers', online: false },
+        { name: 'Kate  Myers', online: false },
+        { name: 'Priscilla Hawkins', online: false },
+        { name: 'Joe Barker', online: false },
+        { name: 'Lee Norman', online: false },
+        { name: 'Ebony Rice', online: false }
+    ];
     
 });
 
@@ -21,7 +51,7 @@ app.controller('PosterCreationCtrl', function($scope, $rootScope, $location, $ht
     
     document.title = "发布";
     
-    $rootScope.poster = {};
+    $scope.poster = {};
     
     //actions
     
@@ -30,11 +60,11 @@ app.controller('PosterCreationCtrl', function($scope, $rootScope, $location, $ht
         //后台调用：
       
         var newPoster = {
-            "subject" : $rootScope.poster.subject 
-            , "body" : $rootScope.poster.body 
+            "subject" : $scope.poster.subject 
+            , "body" : $scope.poster.body 
             , "tip" : {
                 "method" : "现金红包"
-                , "tip_amount" : $rootScope.poster.amount
+                , "tip_amount" : $scope.poster.amount
                 //, "保证帐户收款流水号" : ["1"]
                 , "tip_method" : []
             }
@@ -49,6 +79,7 @@ app.controller('PosterCreationCtrl', function($scope, $rootScope, $location, $ht
         $http.post('/api/v1/poster', {newPoster: newPoster})
         .success(function(data, status, headers, config) {
             console.log("success: post /api/v1/poster/" + data._id);
+            $rootScope.poster = $scope.poster;
             $rootScope.poster.posterid = data._id;
             
             //微信结口取得用户标识，
@@ -56,18 +87,18 @@ app.controller('PosterCreationCtrl', function($scope, $rootScope, $location, $ht
             var vnode = "1";
             
             //不刷新跳转
-            $location.path("/poster/"+ $rootScope.poster.posterid +"/vnode/" + vnode);
+            $rootScope.posterMainPath = "/poster/"+ $rootScope.poster.posterid +"/vnode/" + vnode;
+            $location.path($rootScope.posterMainPath);
         })
         .error(function(data, status, headers, config) {
             console.log("error:  post /api/v1/poster");
         });
-        
     }
     
     //events
     
     $scope.$on('mobile-angular-ui.state.changed.activeSeagmentForAmount', function(e, newVal, oldVal) {
-        $rootScope.poster.amount = newVal;
+        $scope.poster.amount = newVal;
     });
     
 });

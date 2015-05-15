@@ -14,6 +14,11 @@ app.config(function($routeProvider) {
                        controller: 'PosterCreationCtrl',
                        reloadOnSearch: false});
   
+  $routeProvider.when('/poster/:id/vnode/:vnode/creation',
+                      {templateUrl:'/static/mauiwww/templates/poster_create.html',
+                       controller: 'PosterCreationCtrl',
+                       reloadOnSearch: false});
+  
   $routeProvider.when('/poster/:id/vnode/:vnode',
                       {templateUrl:'/static/mauiwww/templates/poster_main.html',
                        controller: 'PosterMainCtrl',
