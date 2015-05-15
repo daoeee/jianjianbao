@@ -1,57 +1,99 @@
 
-app.controller('AppMainCtrl', function($rootScope){
+app.controller('AppMainCtrl', function($rootScope, $http, $location){
     $rootScope.poster = {};
-    $rootScope.posterMainPath = "/";
+    
+    $rootScope.loadPoster = function(id) {
+        console.log("AppMainCtrl: 从后台取当面海报，id=" + id);
+        
+        $http.get('/api/v1/poster/' + id)
+        .success(function(data, status, headers, config) {
+            console.log("success: get /api/v1/poster/" + data._id);
+            $rootScope.poster = data;
+            
+            //微信结口取得用户标识，
+            //后台调用: 存储当前访问结点(动作树根结点)
+            $rootScope.node = "current";
+            
+            //不刷新跳转
+            $rootScope.posterMainPath = "/poster/"+ $rootScope.poster._id +"/node/" + $rootScope.node;
+            $location.path($rootScope.posterMainPath);
+            
+            document.title = $rootScope.poster.subject;
+        })
+        .error(function(data, status, headers, config) {
+            console.log("error:  get /api/v1/poster");
+            $rootScope.posterMainPath = "";
+            $location.path($rootScope.posterMainPath);
+        });
+    }
+    
+    //TODO 可以用Filter实现
+    $rootScope.timeDiff = function(dateTimeStamp) {
+        var minute = 1000 * 60;
+        var hour = minute * 60;
+        var day = hour * 24;
+        var halfamonth = day * 15;
+        var month = day * 30;
+        
+        var now = new Date().getTime();
+        var diffValue = now - new Date(dateTimeStamp).getTime();
+
+        
+        if(diffValue < 0){
+            //若日期不符则弹出窗口告之
+            //alert("结束日期不能小于开始日期！");
+         }
+        var monthC =diffValue/month;
+        var weekC =diffValue/(7*day);
+        var dayC =diffValue/day;
+        var hourC =diffValue/hour;
+        var minC =diffValue/minute;
+        
+        if (dayC>=2) {
+            return parseInt(dayC) +"天前";
+        } else if (dayC>=1){
+            return "昨天";
+        } else if(hourC>=1){
+            return parseInt(hourC) +"小时前";
+        } else if(minC>=1){
+            return parseInt(minC) +"分钟前";
+        }else {
+            return "刚刚";
+        }
+    }
+    
 });
 
-app.controller('WelcomeCtrl', function(){
+app.controller('WelcomeCtrl', function($rootScope){
     document.title = "荐荐宝";
+    $rootScope.posterMainPath = "";
 });
 
 app.controller('PosterMainCtrl', function($scope, $rootScope, $routeParams){
-    
     document.title = $rootScope.poster.subject;
     
     console.log("PosterMainCtrl: id=" + $routeParams.id);
-    console.log("PosterMainCtrl: vnode=" + $routeParams.vnode);
+    console.log("PosterMainCtrl: node=" + $routeParams.node);
     
+    if ($rootScope.poster._id == null)  {
+        $rootScope.loadPoster($routeParams.id);
+    }
     
     $scope.cells = [
-        { name: 'Carlos  Flowers', online: true },
-        { name: 'Byron Taylor', online: true },
-        { name: 'Jana  Terry', online: true },
-        { name: 'Darryl  Stone', online: true },
-        { name: 'Fannie  Carlson', online: true },
-        { name: 'Holly Nguyen', online: true },
-        { name: 'Bill  Chavez', online: true },
-        { name: 'Veronica  Maxwell', online: true },
-        { name: 'Jessica Webster', online: true },
-        { name: 'Jackie  Barton', online: true },
-        { name: 'Crystal Drake', online: false },
-        { name: 'Milton  Dean', online: false },
-        { name: 'Joann Johnston', online: false },
-        { name: 'Cora  Vaughn', online: false },
-        { name: 'Nina  Briggs', online: false },
-        { name: 'Casey Turner', online: false },
-        { name: 'Jimmie  Wilson', online: false },
-        { name: 'Nathaniel Steele', online: false },
-        { name: 'Aubrey  Cole', online: false },
-        { name: 'Donnie  Summers', online: false },
-        { name: 'Kate  Myers', online: false },
-        { name: 'Priscilla Hawkins', online: false },
-        { name: 'Joe Barker', online: false },
-        { name: 'Lee Norman', online: false },
-        { name: 'Ebony Rice', online: false }
+        //{ name: 'Carlos  Flowers', online: true },
+        //{ name: 'Ebony Rice', online: false }
     ];
     
 });
 
-
-app.controller('PosterCreationCtrl', function($scope, $rootScope, $location, $http){
+app.controller('PosterCreationCtrl', function($scope, $rootScope, $location, $http, $routeParams){
     
     document.title = "发布";
+    $scope.poster = {tip:{}};
     
-    $scope.poster = {};
+    if ($rootScope.poster._id == null)  {
+        $rootScope.loadPoster($routeParams.id);
+    }
     
     //actions
     
@@ -79,15 +121,14 @@ app.controller('PosterCreationCtrl', function($scope, $rootScope, $location, $ht
         $http.post('/api/v1/poster', {newPoster: newPoster})
         .success(function(data, status, headers, config) {
             console.log("success: post /api/v1/poster/" + data._id);
-            $rootScope.poster = $scope.poster;
-            $rootScope.poster.posterid = data._id;
+            $rootScope.poster = data;
             
             //微信结口取得用户标识，
             //后台调用: 存储当前访问结点(动作树根结点)
-            var vnode = "1";
+            $rootScope.node = "current";
             
             //不刷新跳转
-            $rootScope.posterMainPath = "/poster/"+ $rootScope.poster.posterid +"/vnode/" + vnode;
+            $rootScope.posterMainPath = "/poster/"+ $rootScope.poster._id +"/node/" + $rootScope.node;
             $location.path($rootScope.posterMainPath);
         })
         .error(function(data, status, headers, config) {
@@ -98,7 +139,7 @@ app.controller('PosterCreationCtrl', function($scope, $rootScope, $location, $ht
     //events
     
     $scope.$on('mobile-angular-ui.state.changed.activeSeagmentForAmount', function(e, newVal, oldVal) {
-        $scope.poster.amount = newVal;
+        $scope.poster.tip.tip_amount = newVal;
     });
     
 });

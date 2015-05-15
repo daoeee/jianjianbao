@@ -7,12 +7,12 @@
                     <input type="text"
                            ng-model="poster.subject"
                            class="form-control"
-                           placeholder="标题，6-30字">
+                           placeholder="标题，1-30字">
                   </div>
           
                   <div class="form-group">
                     <textarea class="form-control" ng-model="poster.body"
-                              placeholder="碰到了什么问题，需要什么样的人向你提供什么，10-300字"></textarea>
+                              placeholder="选填，可以具体说说碰到了什么问题，需要什么样的人向你提供什么，0-300字"></textarea>
                   </div>
                   
             </fieldset>
@@ -49,7 +49,7 @@
                     </div>
                     <p></p>
                     <input type="text"
-                           ng-model="poster.amount"
+                           ng-model="poster.tip.tip_amount"
                            class="form-control"
                            placeholder="（其它金额请输入，单位：元）">
                 </div>
@@ -57,7 +57,7 @@
       
             <div ui-if="activeTabForHowToPay == 2">
                 <div class="form-group">
-                    <p align="center">暂不支持</p>
+                    <p align="center">这里会有更有意思的玩法，请期待</p>
                 </div>
             </div>
             

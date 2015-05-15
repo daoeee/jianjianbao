@@ -2,8 +2,8 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 var PosterSchema = new Schema({
     "id" : {type: String, maxlength: 32}
-    , "subject" : {type: String, minlength: 6, maxlength: 30}
-    , "body" : {type: String, minlength: 10, maxlength: 300} 
+    , "subject" : {type: String, minlength: 1, maxlength: 30}
+    , "body" : {type: String, maxlength: 300} 
     , "tip" : {
         "method" : {type: String, enum: "现金红包".split(','), default: "现金红包"}, /*default 不起作用*/
         "tip_amount" : Number, /*有精度问题*/
