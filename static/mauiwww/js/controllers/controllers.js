@@ -1,15 +1,15 @@
-app.controller('AppMainCtrl', function($scope, $location, $routeParams){
-    $scope.poster = {};
-});
 
+app.controller('AppMainCtrl', function($rootScope){
+    $rootScope.poster = {};
+});
 
 app.controller('WelcomeCtrl', function(){
     document.title = "荐荐宝";
 });
 
-app.controller('PosterMainCtrl', function($scope, $routeParams){
+app.controller('PosterMainCtrl', function($rootScope, $routeParams){
     
-    document.title = $scope.poster.subject;
+    document.title = $rootScope.poster.subject;
     
     console.log("PosterMainCtrl: id=" + $routeParams.id);
     console.log("PosterMainCtrl: vnode=" + $routeParams.vnode);
@@ -17,11 +17,11 @@ app.controller('PosterMainCtrl', function($scope, $routeParams){
 });
 
 
-app.controller('PosterCreationCtrl', function($scope, $location, $http){
+app.controller('PosterCreationCtrl', function($scope, $rootScope, $location, $http){
     
     document.title = "发布";
     
-    $scope.poster = {};
+    $rootScope.poster = {};
     
     //actions
     
@@ -30,11 +30,11 @@ app.controller('PosterCreationCtrl', function($scope, $location, $http){
         //后台调用：
       
         var newPoster = {
-            "subject" : $scope.poster.subject 
-            , "body" : $scope.poster.body 
+            "subject" : $rootScope.poster.subject 
+            , "body" : $rootScope.poster.body 
             , "tip" : {
                 "method" : "现金红包"
-                , "tip_amount" : $scope.poster.amount
+                , "tip_amount" : $rootScope.poster.amount
                 //, "保证帐户收款流水号" : ["1"]
                 , "tip_method" : []
             }
@@ -49,14 +49,14 @@ app.controller('PosterCreationCtrl', function($scope, $location, $http){
         $http.post('/api/v1/poster', {newPoster: newPoster})
         .success(function(data, status, headers, config) {
             console.log("success: post /api/v1/poster/" + data._id);
-            $scope.poster.posterid = data._id;
+            $rootScope.poster.posterid = data._id;
             
             //微信结口取得用户标识，
             //后台调用: 存储当前访问结点(动作树根结点)
             var vnode = "1";
             
             //不刷新跳转
-            $location.path("/poster/"+ $scope.poster.posterid +"/vnode/" + vnode);
+            $location.path("/poster/"+ $rootScope.poster.posterid +"/vnode/" + vnode);
         })
         .error(function(data, status, headers, config) {
             console.log("error:  post /api/v1/poster");
@@ -67,7 +67,7 @@ app.controller('PosterCreationCtrl', function($scope, $location, $http){
     //events
     
     $scope.$on('mobile-angular-ui.state.changed.activeSeagmentForAmount', function(e, newVal, oldVal) {
-        $scope.poster.amount = newVal;
+        $rootScope.poster.amount = newVal;
     });
     
 });
