@@ -1,16 +1,18 @@
 app.controller('AppMainCtrl', function($scope, $location, $routeParams){
-    document.title = "荐荐宝";
-    
     $scope.poster = {};
 });
 
+
+app.controller('WelcomeCtrl', function(){
+    document.title = "荐荐宝";
+});
 
 app.controller('PosterMainCtrl', function($scope, $routeParams){
     
     document.title = $scope.poster.subject;
     
-    console.log("id:" + $routeParams.id);
-    console.log("vnode:" + $routeParams.vnode);
+    console.log("PosterMainCtrl: id=" + $routeParams.id);
+    console.log("PosterMainCtrl: vnode=" + $routeParams.vnode);
     
 });
 
@@ -19,10 +21,7 @@ app.controller('PosterCreationCtrl', function($scope, $location, $http){
     
     document.title = "发布";
     
-    $scope.poster.subject = "newsubject-1";
-    $scope.poster.body = "newbody-say-1";
-    $scope.poster.amount = 50;
-    
+    $scope.poster = {};
     
     //actions
     
@@ -49,19 +48,20 @@ app.controller('PosterCreationCtrl', function($scope, $location, $http){
         
         $http.post('/api/v1/poster', {newPoster: newPoster})
         .success(function(data, status, headers, config) {
-            console.log("success: post /api/v1/poster");
-            $scope.poster.posterid = data.posterid;
+            console.log("success: post /api/v1/poster/" + data._id);
+            $scope.poster.posterid = data._id;
+            
+            //微信结口取得用户标识，
+            //后台调用: 存储当前访问结点(动作树根结点)
+            var vnode = "1";
+            
+            //不刷新跳转
+            $location.path("/poster/"+ $scope.poster.posterid +"/vnode/" + vnode);
         })
         .error(function(data, status, headers, config) {
             console.log("error:  post /api/v1/poster");
         });
         
-        //微信结口取得用户标识，
-        //后台调用: 存储当前访问结点(动作树根结点)
-        var vnode = "1";
-        
-        //不刷新跳转
-        $location.path("/poster/"+ $scope.poster.posterid +"/vnode/" + vnode);
     }
     
     //events

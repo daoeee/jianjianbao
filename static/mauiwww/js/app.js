@@ -4,7 +4,10 @@ var app = angular.module('JApp', [
 ]);
 
 app.config(function($routeProvider) {
-  $routeProvider.when('/', {templateUrl:'/static/mauiwww/templates/welcome.html',  reloadOnSearch: false});
+  $routeProvider.when('/',
+                      {templateUrl:'/static/mauiwww/templates/welcome.html',
+                       controller: 'WelcomeCtrl',
+                      reloadOnSearch: false});
   
   $routeProvider.when('/poster/creation',
                       {templateUrl:'/static/mauiwww/templates/poster_create.html',
