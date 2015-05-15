@@ -106,7 +106,7 @@ app.controller('PosterCreationCtrl', function($scope, $rootScope, $location, $ht
             , "body" : $scope.poster.body 
             , "tip" : {
                 "method" : "现金红包"
-                , "tip_amount" : $scope.poster.amount
+                , "tip_amount" : $scope.poster.tip.tip_amount
                 //, "保证帐户收款流水号" : ["1"]
                 , "tip_method" : []
             }
