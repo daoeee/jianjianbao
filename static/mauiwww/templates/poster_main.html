@@ -1,29 +1,41 @@
 <div class="scrollable">
     <div class="scrollable-content">
-        
-        <div class="list-group-item media">
-            <div class="pull-left">
-                <i class="fa fa-user chat-user-avatar"></i>
-                <!--img src="/static/mauiwww/icons/logo-120.png" width="40" height="40"-->
-            </div>
-            <div class="media-body">
-                <h4 class="media-heading">
-                    {{poster.subject}}<br>
-                    <!--{{poster.create_timestamp| date : 'yyyy-MM-dd HH:mm:ss' }}-->
-                    <small><a>匿名用户</a>&emsp;{{timeDiff(poster.create_timestamp)}}</small>
-                </h4>
-                <p>
-                    <span class="label label-info">榜主</span>
-                    <span class="label label-danger">现金红包{{poster.tip.tip_amount}}元</span>
-                </p>
-                <p>{{poster.body}}</p>
-            </div>
-            <div>
-                
-            </div>
-        </div>
             
         <div class="list-group">
+            <div class="list-group-item media">
+                <div class="pull-left">
+                    <i class="fa fa-user chat-user-avatar"></i>
+                    <!--img src="/static/mauiwww/icons/logo-120.png" width="40" height="40"-->
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        {{poster.subject}}<br>
+                        <!--{{poster.create_timestamp| date : 'yyyy-MM-dd HH:mm:ss' }}-->
+                        <small><a>匿名用户</a>&emsp;{{timeDiff(poster.create_timestamp)}}</small>
+                    </h4>
+                    <p>
+                        <span class="label label-info">榜主</span>
+                        <span class="label label-danger">现金红包{{poster.tip.tip_amount}}元</span>
+                    </p>
+                    <p>{{poster.body}}</p>
+                </div>
+            </div>
+            <div class="list-group-item media" ui-turn-on="proposal">
+                <div class="pull-right">
+                    <img src="/static/mauiwww/icons/btn-ido-180.png" width="120" height="108">
+                </div>
+                <div class="media-body" align="center">
+                        <p>
+                            <br>
+                            帮TA达成心愿<br>
+                            现金红包实时到帐<br>
+                            <a>红包玩法</a>
+                        
+                        </p>
+                    
+                </div>
+            </div>
+            
             <a class="list-group-item media" href="" ng-repeat="cell in cells">
                 <div class="pull-left">
                     <i class="fa fa-user chat-user-avatar"></i>
@@ -42,5 +54,105 @@
                 </div>
             </a>
         </div> <!--list-group-->
+        
+        
+        <div class="list-group">    
+            <div class="list-group-item media" ui-turn-on="view_proposal">
+                <div class="pull-left">
+                    <i class="fa fa-user chat-user-avatar"></i>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        <!--{{poster.create_timestamp| date : 'yyyy-MM-dd HH:mm:ss' }}-->
+                        <small><a>匿名用户</a>&emsp;{{timeDiff(poster.create_timestamp)}}</small>
+                    </h4>
+                    <p>
+                        <span class="label label-info">应召英雄</span>
+                    </p>
+                    <p>这是我解决方案！<a>点击查看</a></p>
+                </div>
+            </div>
+        </div> <!--list-group-->
+    </div>
+</div>
+
+
+<div ui-content-for="modals">
+    
+    <!--div ng-include='/static/mauiwww/templates/poster_proposal.html'></div-->
+    <div class="modal modal-overlay" ui-if='proposal' ui-state='proposal'>
+        <div class="section">
+            <button class="close"
+                        ui-turn-off="proposal">&times;</button>
+            <p></p>
+                
+            <form role="form" ng-submit="createProposal()">
+                <fieldset>
+                    <legend>我要揭榜</legend>
+                      <div class="form-group">
+                        <textarea class="form-control" ng-model="proposal.body"
+                                  placeholder="解决方案，10-300字"></textarea>
+                      </div>
+                </fieldset>
+                
+                <div class="form-group">
+                    <p align="center">点击下面的“提交”按钮，即表示你同意<a href="#">《用户协议》</a></p>
+                    <p>  
+                        <button ui-turn-off="proposal" class="btn btn-block btn-primary">提交</button>
+                    </p>
+                    <p>  
+                        <button ui-turn-off="proposal" class="btn btn-block btn-default">取消</button>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    
+    
+    <!--div ng-include='/static/mauiwww/templates/poster_proposal.html'></div-->
+    <div class="modal modal-overlay" ui-if='view_proposal' ui-state='view_proposal'>
+        <div class="section">
+            <p>
+                <button class="close"
+                            ui-turn-off="view_proposal">&times;</button>
+            </p>
+            
+            <legend>解决方案</legend>
+            
+            <div class="media">
+                <div class="pull-left">
+                    <i class="fa fa-user chat-user-avatar"></i>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        <small>
+                            <a>匿名用户</a><br>
+                            {{timeDiff(poster.create_timestamp)}}
+                        </small>
+                    </h4>
+                </div>
+            </div>
+            
+            
+            <fieldset>
+                <hr>
+                <p>经济人电话：155-0000-0000</p>
+                <hr>
+            </fieldset>
+                
+            <div class="form-group">
+                <p align="center"></p>
+                <p>  
+                    <button ui-turn-off="view_proposal" class="btn btn-block btn-primary">打赏</button>
+                </p>
+                <p>  
+                    <button ui-turn-off="view_proposal" class="btn btn-block btn-default">给点时间，验证解决方案</button>
+                </p>
+                <p>  
+                    <button ui-turn-off="view_proposal" class="btn btn-block btn-default">谢绝</button>
+                </p>
+            </div>
+        </div>
     </div>
 </div>
