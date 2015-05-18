@@ -6,12 +6,14 @@
                 <div class="pull-left">
                     <i class="fa fa-user chat-user-avatar"></i>
                     <!--img src="/static/mauiwww/icons/logo-120.png" width="40" height="40"-->
+                    <p></p>
+                    <p align="center">1楼</p>
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading">
                         {{poster.subject}}<br>
                         <!--{{poster.create_timestamp| date : 'yyyy-MM-dd HH:mm:ss' }}-->
-                        <small><a>匿名用户</a>&emsp;{{timeDiff(poster.create_timestamp)}}</small>
+                        <small><!--a>匿名用户</a--><a>白润发</a>&emsp;{{timeDiff(poster.create_timestamp)}}</small>
                     </h4>
                     <p>
                         <span class="label label-info">榜主</span>
@@ -20,7 +22,7 @@
                     <p>{{poster.body}}</p>
                 </div>
             </div>
-            <div class="list-group-item media" ui-turn-on="proposal">
+            <div class="list-group-item media" ui-turn-on="proposal" ng-show="flase">
                 <div class="pull-right">
                     <img src="/static/mauiwww/icons/btn-ido-180.png" width="120" height="108">
                 </div>
@@ -39,6 +41,8 @@
             <a class="list-group-item media" href="" ng-repeat="cell in cells">
                 <div class="pull-left">
                     <i class="fa fa-user chat-user-avatar"></i>
+                    <p></p>
+                    <p align="center">2楼</p>
                 </div>
                 <div class="media-body">
                     <h5 class="media-heading">{{cell.name}}</h5>
@@ -60,16 +64,21 @@
             <div class="list-group-item media" ui-turn-on="view_proposal">
                 <div class="pull-left">
                     <i class="fa fa-user chat-user-avatar"></i>
+                    <p></p>
+                    <p align="center">2楼</p>
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading">
-                        <!--{{poster.create_timestamp| date : 'yyyy-MM-dd HH:mm:ss' }}-->
-                        <small><a>匿名用户</a>&emsp;{{timeDiff(poster.create_timestamp)}}</small>
+                        <!--{{timeDiff(poster.create_timestamp)}}-->
+                        <small><a>闵一明</a>&emsp;{{poster.create_timestamp| date : 'yyyy-MM-dd HH:mm' }}</small>
                     </h4>
                     <p>
                         <span class="label label-info">应召英雄</span>
                     </p>
-                    <p>这是我解决方案！<a>点击查看</a></p>
+                    <p>
+                        这是我解决方案！<a>请点击查看</a><br>
+                    </p>
+                    <div class="alert alert-danger">系统提醒：你打开解决方案一个小时后，红包会自动发放给解决方案提供者。但你可以在一个小时内根据情况，更改红包发放决定。</div>
                 </div>
             </div>
         </div> <!--list-group-->
@@ -127,7 +136,7 @@
                 <div class="media-body">
                     <h4 class="media-heading">
                         <small>
-                            <a>匿名用户</a><br>
+                            <a>闵一明</a><br>
                             {{timeDiff(poster.create_timestamp)}}
                         </small>
                     </h4>
@@ -137,22 +146,57 @@
             
             <fieldset>
                 <hr>
-                <p>经济人电话：155-0000-0000</p>
+                <p>155-0000-0000</p>
                 <hr>
             </fieldset>
-                
+            
+            <ui-state id="activeSeagment"></ui-state>
+            
             <div class="form-group">
+                <label>这是你要的解决方案吗？</label>
+                <div class="btn-group justified nav-tabs">
+                    <a ui-set="{'activeSeagment': '1'}" 
+                        ui-class="{'active': activeSeagment == 1}" class="btn btn-default">帮我解决问题了</a>
+            
+                    <a ui-set="{'activeSeagment': 2}" 
+                        ui-class="{'active': activeSeagment == 2}" class="btn btn-default">待验证</a>
+            
+                    <a ui-set="{'activeSeagment': 3}" 
+                        ui-class="{'active': activeSeagment == 3}" class="btn btn-default">没有帮助</a>
+                    
+                </div>
+            </div>
+            
+            <div class="form-group" ui-if="activeSeagment == 1">
                 <p align="center"></p>
                 <p>  
-                    <button ui-turn-off="view_proposal" class="btn btn-block btn-primary">打赏</button>
-                </p>
-                <p>  
-                    <button ui-turn-off="view_proposal" class="btn btn-block btn-default">给点时间，验证解决方案</button>
-                </p>
-                <p>  
-                    <button ui-turn-off="view_proposal" class="btn btn-block btn-default">谢绝</button>
+                    <button ui-turn-off="view_proposal" class="btn btn-block btn-primary">立即放发红包</button>
                 </p>
             </div>
+            
+            <div class="form-group" ui-if="activeSeagment == 2">
+                <p align="center"></p>
+                <p>  
+                    <button ui-turn-off="view_proposal" class="btn btn-block btn-primary">给我一个小时</button>
+                </p>
+                <p>  
+                    <button ui-turn-off="view_proposal" class="btn btn-block btn-default">给我一天时间</button>
+                </p>
+                <p>  
+                    <button ui-turn-off="view_proposal" class="btn btn-block btn-default">给我三天时间</button>
+                </p>
+            </div>
+            
+            <div class="form-group" ui-if="activeSeagment == 3">
+                <div class="form-group">
+                    <textarea class="form-control"
+                        placeholder="拒绝理由，10-300字"></textarea>
+                </div>
+                <p>  
+                    <button ui-turn-off="view_proposal" class="btn btn-block btn-primary">拒绝发放红包给Ta</button>
+                </p>
+            </div>
+            
         </div>
     </div>
 </div>
