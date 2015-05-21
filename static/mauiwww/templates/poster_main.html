@@ -2,7 +2,10 @@
     <div class="scrollable-content">
             
         <div class="list-group">
+            
+                    
             <div class="list-group-item media">
+                <div class="alert alert-danger" ng-show="false">系统提醒：59秒后，红包将自动发放给2楼。但你可以在 5-18 16:29 前，更改红包发放决定。</div>
                 <div class="pull-left">
                     <i class="fa fa-user chat-user-avatar"></i>
                     <!--img src="/static/mauiwww/icons/logo-120.png" width="40" height="40"-->
@@ -17,12 +20,19 @@
                     </h4>
                     <p>
                         <span class="label label-info">榜主</span>
-                        <span class="label label-danger">现金红包{{poster.tip.tip_amount}}元</span>
+                        <span class="label label-danger" ng-show="false">红包{{poster.tip.tip_amount}}元</span>
+                        <span class="label label-default" ng-show="true">红包{{poster.tip.tip_amount}}元已发放</span>
                     </p>
                     <p>{{poster.body}}</p>
+                    <p ng-show="false">
+                        <a>管理红包发放</a><br>
+                    </p>
+                    <div class="alert alert-info">
+                        系统公告：红包于5-18 16:29发放，<a>闵一明</a>16.00元，<a>苏快手</a>4.00元<br>
+                    </div>
                 </div>
             </div>
-            <div class="list-group-item media" ui-turn-on="proposal" ng-show="flase">
+            <div class="list-group-item media" ui-turn-on="proposal" ng-show="false">
                 <div class="pull-right">
                     <img src="/static/mauiwww/icons/btn-ido-180.png" width="120" height="108">
                 </div>
@@ -60,6 +70,30 @@
         </div> <!--list-group-->
         
         
+        <div class="list-group" ng-show="flase">    
+            <div class="list-group-item media" ui-turn-on="view_proposal">
+                <div class="pull-left">
+                    <i class="fa fa-user chat-user-avatar"></i>
+                    <p></p>
+                    <p align="center">2楼</p>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        <!--{{timeDiff(poster.create_timestamp)}}-->
+                        <small><a>闵一明</a>&emsp;{{poster.create_timestamp| date : 'M-d H:mm' }}</small>
+                    </h4>
+                    <p>
+                        <span class="label label-info">应召英雄</span>
+                    </p>
+                    <p>
+                        这是我的解决方案！<a>查看</a><br>
+                    </p>
+                    <div class="alert alert-danger">系统提醒：你打开解决方案一个小时后，红包将自动发放给解决方案提供者。但你可以在一个小时内，更改红包发放决定。</div>
+                </div>
+            </div>
+        </div> <!--list-group-->
+        
+        
         <div class="list-group">    
             <div class="list-group-item media" ui-turn-on="view_proposal">
                 <div class="pull-left">
@@ -70,15 +104,22 @@
                 <div class="media-body">
                     <h4 class="media-heading">
                         <!--{{timeDiff(poster.create_timestamp)}}-->
-                        <small><a>闵一明</a>&emsp;{{poster.create_timestamp| date : 'yyyy-MM-dd HH:mm' }}</small>
+                        <small><a>闵一明</a>&emsp;{{poster.create_timestamp| date : 'M-d H:mm' }}</small>
                     </h4>
                     <p>
                         <span class="label label-info">应召英雄</span>
+                        <span class="label label-default" ng-show="false">方案待验证</span>
+                        <span class="label label-danger">赢得红包16元</span>
                     </p>
                     <p>
-                        这是我解决方案！<a>请点击查看</a><br>
+                        这是我的解决方案！<a ng-show="false">管理红包发放</a><a ng-show="true">查看</a><br>
                     </p>
-                    <div class="alert alert-danger">系统提醒：你打开解决方案一个小时后，红包会自动发放给解决方案提供者。但你可以在一个小时内根据情况，更改红包发放决定。</div>
+                    
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                             <a>白润发：</a>收到，给我一个小时哈
+                        </div>
+                     </div>
                 </div>
             </div>
         </div> <!--list-group-->
